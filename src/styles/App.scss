@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,700&display=swap&subset=cyrillic');
+@import "variables";
+@import "Header";
+@import "Main";
+@import "Footer";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 16px;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "main main main"
+    "footer footer footer";
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  grid-gap: 10px;
+  height: 100vh;
+
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+@media all and (max-width: 575px) {
+  .container {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-rows: 50px 5fr 0.2fr;
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
+}
+
+main, section {
+
+  background: $dark-sea-green;
+}
