@@ -20,8 +20,8 @@ const Layout = ({ children }) => {
   return (
     <div className="container">
       <Header />
-      <section id="pageMain" className="main">
-        <main>{children}</main>
+      <section id="pageMain">
+        <main className="main">{children}</main>
       </section>
       <Footer />
     </div>
