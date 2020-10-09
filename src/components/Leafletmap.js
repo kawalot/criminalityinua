@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
-
 class LeafletMap extends React.Component {
 
   static propTypes = {
@@ -24,8 +23,9 @@ class LeafletMap extends React.Component {
   }
 
   render() {
-    
+    if (typeof window !== 'undefined') {
       return (
+
         <Map center={this.props.position} zoom={this.props.zoom}>
         <TileLayer
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -38,6 +38,8 @@ class LeafletMap extends React.Component {
         }
       </Map>
       );
+    }
+    return null
   }
 }
 

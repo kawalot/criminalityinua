@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { useSiteMetadata } from '../hooks';
-
 import '../styles/Footer.scss'
+
 
 const Footer = () => {
   const { authorName } = useSiteMetadata();

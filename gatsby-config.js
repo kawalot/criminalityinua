@@ -45,5 +45,24 @@ module.exports = {
         linkStyles: true // (default: true) Enable/disable loading stylesheets via CDN
       }
     },
+    {
+      resolve: `gatsby-source-sql`,
+      options: {
+        typeName: 'Cases',
+        // This is the field under which the data will be accessible in a future version
+        fieldName: 'registry_number',
+        dbEngine: {
+          client: 'sqlite3',
+          connection: {
+            filename: './src/data/db.sqlite3',
+          },
+          useNullAsDefault: true
+        },
+        queryChain: function(x) {
+          return x
+            .select("*").from("cases")
+        }
+      }
+    }
   ],
 }
