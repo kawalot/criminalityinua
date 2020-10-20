@@ -13,19 +13,19 @@ class LeafletMap extends React.Component {
     zoom: PropTypes.number,
 
     /** If set, will display a marker, which when clicked will display this text **/
-    markerText: PropTypes.string
+    markers: PropTypes.array
   }
 
   static defaultProps = {
     position: [51, -1],
     zoom: 13,
-    markerText: ""
+    markers: []
   }
 
   render() {
+    console.log(this.props.markers)
     if (typeof window !== 'undefined') {
       return (
-
         <Map center={this.props.position} zoom={this.props.zoom}>
         <TileLayer
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
