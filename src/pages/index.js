@@ -5,16 +5,19 @@ import SEO from "../components/seo"
 import LeafletMap from '../components/Leafletmap'
 import { graphql } from 'gatsby'
 
-const IndexPage = ({ data }) => (
+const IndexPage = ({ data }) => {
+
+  return (
   <Layout>
     <SEO title="Home" />
     <LeafletMap
-      position={[46.431306, 30.715389]}
-      zoom={11}
+      position={[34.668876, -43.115289]}
+      zoom={3}
       markers={data.allCases.edges}
     />
   </Layout>
-)
+  )
+}
 
 export const query = graphql`
     query {

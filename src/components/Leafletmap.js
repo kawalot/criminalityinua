@@ -1,30 +1,41 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useRef, useEffect } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import L from 'leaflet'
+import murderMarker from '../images/marker.png'
+//import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
+//delete L.Icon.Default.prototype._getIconUrl;
 
-class LeafletMap extends React.Component {
+const default_latlng = [46.431306, 30.715389]
 
-  static propTypes = {
-    /** Latitude and Longitude of the map centre in an array, eg [51, -1] **/
-    position: PropTypes.array,
+const LeafletMap = (props) => {
+    const mapRef = useRef()
 
-    /** Initial zoom level for the map (default 13) **/
-    zoom: PropTypes.number,
+    useEffect(() => {
+      const { current = {} } = mapRef;
+      const { leafletElement: map } = current;
+      setTimeout(() => {
+        map.flyTo(default_latlng, 11, {duration: 3})
+      }, 1000)
+    }, [mapRef])
 
-    /** If set, will display a marker, which when clicked will display this text **/
-    markers: PropTypes.array
-  }
+    const defaultProps = {
+      position: [51, -1],
+      zoom: 13,
+      markers: []
+    }
 
-  static defaultProps = {
-    position: [51, -1],
-    zoom: 13,
-    markers: []
-  }
+    const murderIcon = new L.Icon({
+      iconUrl: murderMarker,
+      iconSize: [17,17],
+      iconAnchor: [11,1],
+      //shadowUrl: iconShadow,
+      //shadowAnchor: [18,22]
+    })  
 
-  render() {
+    L.Marker.prototype.options.icon = murderIcon
 
-    const markerList = this.props.markers.map(function(item, index) {
+    const markerList = props.markers.map(function(item, index) {
 
       const { 
         address,
@@ -54,18 +65,21 @@ class LeafletMap extends React.Component {
 
     //console.log(this.props.markers)
     if (typeof window !== 'undefined') {
+      
       return (
-        <Map center={this.props.position} zoom={this.props.zoom}>
+        <Map ref={mapRef} center={props.position} zoom={props.zoom}>
         <TileLayer
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
         {markerList}
+        
       </Map>
+      
       );
     }
     return null
   }
-}
+
 
 export default LeafletMap
